@@ -11,101 +11,31 @@ import userRoutes from './routes/userRoutes.js';
 const port = process.env.PORT || 8080;
 
 connectDB();
-console.log(process.env.clientUrl)
+console.log("React app",process.env.clientUrl)
 const app = express();
-// app.use(cors({ origin: 'http://localhost:3000' }));
-// Allow requests from any origin
-// app.use(cors());
-// app.use(cors());
 
-// const corsOptions = {
-//   origin:  process.env.clientUrl, // Replace with your frontend's domain
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-// };
-
-// app.use(cors("*"));
 // app.use(cors({
-//   origin: process.env.clientUrl
+//   origin: '*'
 // }));
+
 app.use(cors({
-  origin: '*'
+  origin: 'https://supm-assignment.vercel.app'
 }));
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*'); // Allowing all origins, you can specify a specific origin if needed
-//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//   // Other headers...
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your React frontend's domain
-//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//   res.header('Access-Control-Allow-Credentials', 'true');
-//   //   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   // Set the allowed origin(s)
-//   res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your client's domain
-
-//   // Set other necessary headers
-//   res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
-
-//   // Handle preflight requests (OPTIONS)
-//   if (req.method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//     return res.status(200).json({});
-//   }
-
-//   next();
-// });
+app.get('/', (req, res) => {
+  res.send('API is running....');
+});
 
 
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
-
 app.use(cookieParser());
+
 app.use('/api/users', userRoutes);
-
-
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
-
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => {
-    res.send('API is running....');
-  });
-}
-
-
-
-app.post('/api/signin', (req, res) => {
-  const { username, password } = req.body;
-  // Perform validation and user authentication here
-  // ...
-
-  // If authenticated, generate JWT token
-  const token = jwt.sign({ username }, secretKey);
-
-  // Set HttpOnly cookie
-  res.cookie('jwtToken', token, { httpOnly: true });
-
-  // Send token in response
-  res.json({ token });
-});
-
 app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
-
 
 process.on('SIGINT', function() {
   console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );

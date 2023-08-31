@@ -25,12 +25,26 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allowing all origins, you can specify a specific origin if needed
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  // Other headers...
+  next();
+});
+
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your React frontend's domain
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   //   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   next();
+// });
+
 // app.use((req, res, next) => {
 //   // Set the allowed origin(s)
 //   res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your client's domain
 
 //   // Set other necessary headers
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 //   res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
 
 //   // Handle preflight requests (OPTIONS)

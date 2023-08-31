@@ -16,23 +16,31 @@ const app = express();
 // app.use(cors({ origin: 'http://localhost:3000' }));
 // Allow requests from any origin
 // app.use(cors());
+// app.use(cors());
 
-app.use((req, res, next) => {
-  // Set the allowed origin(s)
-  res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your client's domain
+const corsOptions = {
+  origin:  process.env.clientUrl, // Replace with your frontend's domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
 
-  // Set other necessary headers
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
+app.use(cors(corsOptions));
 
-  // Handle preflight requests (OPTIONS)
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    return res.status(200).json({});
-  }
+// app.use((req, res, next) => {
+//   // Set the allowed origin(s)
+//   res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your client's domain
 
-  next();
-});
+//   // Set other necessary headers
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
+
+//   // Handle preflight requests (OPTIONS)
+//   if (req.method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     return res.status(200).json({});
+//   }
+
+//   next();
+// });
 
 
 app.use(express.json());

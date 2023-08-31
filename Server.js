@@ -14,13 +14,18 @@ connectDB();
 console.log("React app",process.env.clientUrl)
 const app = express();
 
-// app.use(cors({
-//   origin: '*'
-// }));
+const allowedOrigins = ['https://supm-assignment.vercel.app', 'https://supm-assignment-git-main-souman1729.vercel.app', 'https://supm-assignment-fbitlt4yf-souman1729.vercel.app/']; // Add more origins as needed
 
 app.use(cors({
-  origin: 'https://supm-assignment.vercel.app'
+  origin: allowedOrigins,
+  
 }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.get('/', (req, res) => {
   res.send('API is running....');

@@ -24,8 +24,11 @@ const app = express();
 // };
 
 // app.use(cors("*"));
+// app.use(cors({
+//   origin: process.env.clientUrl
+// }));
 app.use(cors({
-  origin: process.env.clientUrl
+  origin: '*'
 }));
 
 // app.use((req, res, next) => {

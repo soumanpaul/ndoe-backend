@@ -17,16 +17,32 @@ const app = express();
 
 
 // Use CORS middleware with allowed origin
-app.use(cors({
-  origin: 'https://supm-assignment.vercel.app',
-}));
+// app.use(cors({
+//   origin: 'https://supm-assignment.vercel.app',
+// }));
 
-// Set response headers
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Credentials', 'true');
+// // Set response headers
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
+
+const corsOptions = {
+  origin(origin, callback) {
+    callback(null, true);
+  },
+  credentials: true
+};
+app.use(cors(corsOptions));
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,token');
   next();
-});
+}
+app.use(allowCrossDomain);
+
 
 app.get('/', (req, res) => {
   res.send('API is running....');

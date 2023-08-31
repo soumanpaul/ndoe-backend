@@ -19,7 +19,7 @@ const app = express();
 
 app.use((req, res, next) => {
   // Set the allowed origin(s)
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your client's domain
+  res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your client's domain
 
   // Set other necessary headers
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');

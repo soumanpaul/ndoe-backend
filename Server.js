@@ -18,19 +18,22 @@ const app = express();
 // app.use(cors());
 // app.use(cors());
 
-const corsOptions = {
-  origin:  process.env.clientUrl, // Replace with your frontend's domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-};
+// const corsOptions = {
+//   origin:  process.env.clientUrl, // Replace with your frontend's domain
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+// };
 
-app.use(cors());
+// app.use(cors("*"));
+app.use(cors({
+  origin: process.env.clientUrl
+}));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allowing all origins, you can specify a specific origin if needed
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  // Other headers...
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*'); // Allowing all origins, you can specify a specific origin if needed
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   // Other headers...
+//   next();
+// });
 
 // app.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', process.env.clientUrl); // Replace with your React frontend's domain

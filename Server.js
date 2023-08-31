@@ -11,7 +11,7 @@ import userRoutes from './routes/userRoutes.js';
 const port = process.env.PORT || 8080;
 
 connectDB();
-
+console.log(process.env.clientUrl)
 const app = express();
 // app.use(cors({ origin: 'http://localhost:3000' }));
 // Allow requests from any origin

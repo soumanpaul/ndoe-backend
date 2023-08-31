@@ -14,11 +14,9 @@ connectDB();
 console.log("React app",process.env.clientUrl)
 const app = express();
 
-const allowedOrigins = ['https://supm-assignment.vercel.app/', 'https://supm-assignment-git-main-souman1729.vercel.app/', 'https://supm-assignment-fbitlt4yf-souman1729.vercel.app/']; // Add more origins as needed
 
 app.use(cors({
-  origin: allowedOrigins,
-  
+  origin: 'https://supm-assignment.vercel.app/',
 }));
 
 app.use((req, res, next) => {

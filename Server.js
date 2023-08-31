@@ -15,10 +15,13 @@ console.log("React app",process.env.clientUrl)
 const app = express();
 
 
+
+// Use CORS middleware with allowed origin
 app.use(cors({
-  origin: 'https://supm-assignment.vercel.app/',
+  origin: 'https://supm-assignment.vercel.app',
 }));
 
+// Set response headers
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Credentials', 'true');

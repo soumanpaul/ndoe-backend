@@ -7,6 +7,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   token = req.cookies.token;
   console.log("Token...12",token)
+  console.log("Token...12",token)
   
   if (token) {
     try {
